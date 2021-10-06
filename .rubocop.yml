@@ -1,0 +1,20 @@
+AllCops:
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 30
+
+Lint/DuplicateMethods:
+  Enabled: false
