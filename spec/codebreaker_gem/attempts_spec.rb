@@ -18,7 +18,6 @@ module CodebreakerGem
 
       it 'returns false if all attempts are used' do
         game.generate_signs('1234')
-        # binding.pry
         expect(game.ckeck_for_attempts?).to be_falsey
       end
     end
