@@ -2,14 +2,13 @@
 
 require_relative '../spec_requires'
 
-module CodebreakerGem
+module Codebreaker
   RSpec.describe Game do
-    let(:game) { Game.new }
-    before do
-      game.start
-    end
+    let(:game) { described_class.new }
 
-    context '#start' do
+    before { game.start }
+
+    describe '#start' do
       it 'saves code' do
         expect(game.instance_variable_get(:@code)).not_to be_empty
       end

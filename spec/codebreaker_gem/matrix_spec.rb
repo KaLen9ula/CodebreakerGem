@@ -1,9 +1,9 @@
 require_relative '../spec_requires'
 require 'pry'
 
-module CodebreakerGem
+module Codebreaker
   RSpec.describe Game do
-    let(:game) { Game.new }
+    let(:game) { described_class.new }
     let(:matrix) do
       [
         ['6543', '2222', ''],
@@ -20,13 +20,11 @@ module CodebreakerGem
       ]
     end
 
-    before do
-      game.start
-    end
+    before { game.start }
 
-    context '#generate_sings' do
+    describe '#generate_sings' do
       it 'increases attempts by 1' do
-        expect { game.generate_signs('1111') }.to change { game.attempts }.by(1)
+        expect { game.generate_signs('1111') }.to change(game, :attempts).by(1)
       end
 
       it 'returns sthm' do

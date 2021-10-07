@@ -1,32 +1,28 @@
 # frozen_string_literal: true
 
+require 'i18n'
+I18n.load_path << Dir[['config', 'locales', '**', '*.yml'].join('/')]
+I18n.config.available_locales = :en, :ru
+
 require_relative 'validation/validation'
 require_relative 'validation/errors_include'
+require_relative 'matrix_matcher'
+require_relative 'game_config'
 
-module CodebreakerGem
+module Codebreaker
   class Game
     include Validation
-    attr_accessor :name, :code, :difficulty, :attempts, :hints, :available_hints
+    include CodeMatcher
+    include Settings
 
-    CODE_RANGE = (1..6).to_a.freeze
-    CODE_LENGTH = 4
-    USER_NAME = ''
-    GAME_CODE = ''
-    GAME_DIFFICULTY = 0
-    GAME_ATTEMPTS = 0
-    GAME_HINTS = 0
-    DIFFICULTIES = {
-      easy: { attempts: 15, hints: 2 },
-      medium: { attempts: 10, hints: 1 },
-      hell: { attempts: 5, hints: 1 }
-    }.freeze
+    attr_accessor :code, :attempts, :hints, :available_hints
+    attr_reader :name, :difficulty
 
-    def initialize
-      @name = USER_NAME
-      @code = GAME_CODE
-      @difficulty = GAME_DIFFICULTY
-      @attempts = GAME_ATTEMPTS
-      @hints = GAME_HINTS
+    def initialize(name: USER_NAME, code: GAME_CODE, attempts: GAME_ATTEMPTS, hints: GAME_HINTS)
+      @name = name
+      @code = code
+      @attempts = attempts
+      @hints = hints
     end
 
     def start
@@ -39,7 +35,7 @@ module CodebreakerGem
 
       hint = @available_hints.chars.sample
       @available_hints.sub!(hint, '')
-      @hints += 1
+      @hints += HINTS_INCREMENT
       hint
     end
 
@@ -54,7 +50,7 @@ module CodebreakerGem
 
     def generate_signs(input_value)
       validate_guess(input_value)
-      @attempts += 1
+      @attempts += ATTEMPTS_INCREMENT
       display_signs(input_value)
     end
 
@@ -68,26 +64,6 @@ module CodebreakerGem
 
     def check_for_difficulties
       DIFFICULTIES
-    end
-
-    def check_position(input_value)
-      code = ''
-      extra_char = ''
-      (0...CODE_LENGTH).select { |index| input_value[index] == @code[index] }.reverse_each do |index|
-        code += '+'
-        extra_char += input_value.slice!(index)
-      end
-      [input_value, code, extra_char]
-    end
-
-    def check_inclusion(input_value, code = '', extra_char = '')
-      input_value.each_char do |char|
-        if @code.include?(char) && !extra_char.include?(char)
-          code += '-'
-          extra_char += char
-        end
-      end
-      [input_value, code, extra_char]
     end
 
     def display_signs(input_value)

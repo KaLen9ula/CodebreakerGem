@@ -2,14 +2,13 @@
 
 require_relative '../spec_requires'
 
-module CodebreakerGem
+module Codebreaker
   RSpec.describe Game do
-    let(:game) { Game.new }
-    before do
-      game.start
-    end
+    let(:game) { described_class.new }
 
-    context '#available_difficulties' do
+    before { game.start }
+
+    describe '#available_difficulties' do
       it 'returns hash' do
         expect(game.check_for_difficulties.class).to eq(Hash)
       end

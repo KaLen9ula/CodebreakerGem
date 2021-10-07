@@ -1,20 +1,24 @@
+require: 
+  - rubocop-performance
+  - rubocop-rspec
+
 AllCops:
-  NewCops: enable
+  Exclude:
+    - 'vendor/bundle/**/*'
+    - 'spec/**/*.rb'
 
 Style/Documentation:
   Enabled: false
 
 Layout/LineLength:
   Max: 120
-
-Gemspec/RequiredRubyVersion:
-  Enabled: false
+  Exclude: 
+  - 'lib/codebreaker_gem/game.rb'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Metrics/BlockLength:
   Max: 30
-
-Lint/DuplicateMethods:
-  Enabled: false
+  Exclude:
+  - 'spec/**/*.rb'

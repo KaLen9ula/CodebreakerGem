@@ -4,7 +4,7 @@ require_relative 'lib/codebreaker_gem/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'codebreaker_gem'
-  spec.version       = CodebreakerGem::VERSION
+  spec.version       = Codebreaker::VERSION
   spec.authors       = ['KaLen9ula']
   spec.email         = ['andruhovickola167@gmail.com']
 
@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Write a longer description or delete this line.'
   spec.homepage      = 'http://google.com'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.4')
 
   spec.metadata['allowed_push_host'] = "Set to 'http://mygemserver.com'"
 

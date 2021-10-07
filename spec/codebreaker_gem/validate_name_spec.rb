@@ -2,11 +2,11 @@
 
 require_relative '../spec_requires'
 
-module CodebreakerGem
+module Codebreaker
   RSpec.describe Validation do
     let(:test_name) { Class.new { extend Validation } }
 
-    context '#validate_name' do
+    describe '#validate_name' do
       it 'raise LengthError if name has less than 3 letters' do
         expect { test_name.validate_name('Mo') }.to raise_error LengthError
       end

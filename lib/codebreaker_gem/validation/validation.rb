@@ -8,6 +8,6 @@ module Validation
   end
 
   def validate_guess(code)
-    raise InputError unless code.match(/^[1-6]{4}$/)
+    raise InputError unless /^[1-6]{4}$/.match?(code)
   end
 end

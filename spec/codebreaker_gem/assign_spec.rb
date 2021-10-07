@@ -2,14 +2,13 @@
 
 require_relative '../spec_requires'
 
-module CodebreakerGem
+module Codebreaker
   RSpec.describe Game do
-    let(:game) { Game.new }
-    before do
-      game.start
-    end
+    let(:game) { described_class.new }
 
-    context '#assign_difficulty' do
+    before { game.start }
+
+    describe '#assign_difficulty' do
       it 'easy difficulty is when @difficulty equals 0' do
         game.difficulty = :easy
         expect(game.difficulty).to eq 0
@@ -26,7 +25,7 @@ module CodebreakerGem
       end
     end
 
-    context '#assign_name' do
+    describe '#assign_name' do
       it 'sets name' do
         name = FFaker::Name.name
         game.name = name

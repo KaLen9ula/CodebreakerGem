@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CodebreakerGem
+module Codebreaker
   module Stats
     def self.show_stats(games)
       games = games.sort_by(&:hints).sort_by(&:attempts).sort_by { |game| -game.difficulty }
@@ -9,7 +9,7 @@ module CodebreakerGem
 
     def self.get_total_results(games)
       games.group_by(&:name).transform_values do |grouped_games|
-        { attemts: grouped_games.collect(&:attempts).sum, hints: grouped_games.collect(&:hints).sum }
+        { attemts: grouped_games.sum(&:attempts), hints: grouped_games.sum(&:hints) }
       end
     end
 
@@ -20,5 +20,6 @@ module CodebreakerGem
          total_results[name][:hints], game.hints]
       end
     end
+    private_class_method :get_total_results, :group_statistics
   end
 end

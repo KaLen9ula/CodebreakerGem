@@ -2,6 +2,6 @@
 
 require 'codebreaker_gem/version'
 
-module CodebreakerGem
+module Codebreaker
   class Error < StandardError; end
 end

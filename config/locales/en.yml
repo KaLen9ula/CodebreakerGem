@@ -1,0 +1,4 @@
+en:
+  error:
+    length_error: 'Incorrect length'
+    input_error: 'Incorrect input'

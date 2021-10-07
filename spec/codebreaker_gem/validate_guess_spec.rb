@@ -2,11 +2,11 @@
 
 require_relative '../spec_requires'
 
-module CodebreakerGem
+module Codebreaker
   RSpec.describe Validation do
     let(:test_guess) { Class.new { extend Validation } }
 
-    context '#validate_guess' do
+    describe '#validate_guess' do
       it 'raise InputError if guess has more than 4 numbers' do
         expect { test_guess.validate_guess('12345') }.to raise_error InputError
       end

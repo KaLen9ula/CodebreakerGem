@@ -2,6 +2,6 @@
 
 class LengthError < StandardError
   def initialize
-    super('Incorrect length')
+    super(I18n.t('error.length_error'))
   end
 end

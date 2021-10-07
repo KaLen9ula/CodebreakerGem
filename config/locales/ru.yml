@@ -1,0 +1,4 @@
+en:
+  error:
+    length_error: 'Неправильная длинна'
+    input_error: 'Неправильный ввод'

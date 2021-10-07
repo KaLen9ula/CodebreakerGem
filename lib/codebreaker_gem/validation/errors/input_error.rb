@@ -2,6 +2,6 @@
 
 class InputError < StandardError
   def initialize
-    super('Incorrect input')
+    super(I18n.t('error.input_error'))
   end
 end
