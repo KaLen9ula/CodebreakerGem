@@ -31,11 +31,11 @@ module Codebreaker
     end
 
     def use_hint
-      return ' ' if @available_hints.empty?
+      return if @available_hints.empty?
 
       hint = @available_hints.chars.sample
       @available_hints.sub!(hint, '')
-      @hints += HINTS_INCREMENT
+      @hints -= HINTS_INCREMENT
       hint
     end
 
@@ -68,7 +68,7 @@ module Codebreaker
 
     def display_signs(input_value)
       input_value, code, extra_char = check_position(input_value)
-      _, code, = check_inclusion(input_value, code, extra_char)
+      input_value, code, extra_char = check_inclusion(input_value, code, extra_char)
       code
     end
   end

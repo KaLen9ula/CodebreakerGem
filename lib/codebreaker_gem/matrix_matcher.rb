@@ -7,7 +7,7 @@ module Codebreaker
     def check_position(input_value)
       code = ''
       extra_char = ''
-      (0...Codebreaker::CODE_LENGTH).select { |index| input_value[index] == @code[index] }.reverse_each do |index|
+      code_selector(input_value).reverse_each do |index|
         code += '+'
         extra_char += input_value.slice!(index)
       end
@@ -16,12 +16,22 @@ module Codebreaker
 
     def check_inclusion(input_value, code = '', extra_char = '')
       input_value.each_char do |char|
-        if @code.include?(char) && !extra_char.include?(char)
+        if char_inclusion?(char, extra_char)
           code += '-'
           extra_char += char
         end
       end
       [input_value, code, extra_char]
+    end
+
+    private
+
+    def code_selector(input_value)
+      (0...Codebreaker::CODE_LENGTH).select { |index| input_value[index] == @code[index] }
+    end
+
+    def char_inclusion?(char, extra_char)
+      @code.include?(char) && !extra_char.include?(char)
     end
   end
 end

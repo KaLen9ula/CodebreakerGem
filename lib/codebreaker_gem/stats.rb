@@ -3,7 +3,7 @@
 module Codebreaker
   module Stats
     def self.show_stats(games)
-      games = games.sort_by(&:hints).sort_by(&:attempts).sort_by { |game| -game.difficulty }
+      games = games.sort_by { |game| [-game.difficulty, game.hints, game.attempts] }
       group_statistics(games)
     end
 

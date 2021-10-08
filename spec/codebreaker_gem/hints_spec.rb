@@ -15,7 +15,7 @@ module Codebreaker
         game.available_hints = '1'
         game.use_hint
 
-        expect(game.use_hint).to eq ' '
+        expect(game.use_hint).to eq nil
       end
     end
   end
