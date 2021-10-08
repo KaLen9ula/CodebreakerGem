@@ -68,7 +68,7 @@ module Codebreaker
 
     def display_signs(input_value)
       input_value, code, extra_char = check_position(input_value)
-      input_value, code, extra_char = check_inclusion(input_value, code, extra_char)
+      _input_value, code, _extra_char = check_inclusion(input_value, code, extra_char)
       code
     end
   end
