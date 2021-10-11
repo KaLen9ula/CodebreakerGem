@@ -48,7 +48,7 @@ module Codebreaker
       hint
     end
 
-    def difficulty_symbol
+    def difficulty_level
       Settings::DIFFICULTIES.keys[difficulty]
     end
 
