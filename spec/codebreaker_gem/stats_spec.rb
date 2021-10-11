@@ -21,9 +21,9 @@ module Codebreaker
       end
 
       expected_values = [
-        {number: 1, name: 'name3', difficulty: 2, available_attempts: 5, used_attempts: 4, available_hints: 1, used_hints: 1}, 
-        {number: 2, name: 'name2', difficulty: 1, available_attempts: 10, used_attempts: 3, available_hints: 1, used_hints: 0}, 
-        {number: 3, name: 'name1', difficulty: 0, available_attempts: 15, used_attempts: 4, available_hints: 2, used_hints: 1}
+        {number: 1, name: 'name3', difficulty: :hell, available_attempts: 5, used_attempts: 4, available_hints: 1, used_hints: 1}, 
+        {number: 2, name: 'name2', difficulty: :medium, available_attempts: 10, used_attempts: 3, available_hints: 1, used_hints: 0}, 
+        {number: 3, name: 'name1', difficulty: :easy, available_attempts: 15, used_attempts: 4, available_hints: 2, used_hints: 1}
       ]
 
       it 'returns stats' do

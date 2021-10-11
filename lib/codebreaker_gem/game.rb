@@ -48,6 +48,10 @@ module Codebreaker
       hint
     end
 
+    def difficulty_symbol
+      Settings::DIFFICULTIES.keys[difficulty]
+    end
+
     def check_for_difficulties
       DIFFICULTIES
     end
