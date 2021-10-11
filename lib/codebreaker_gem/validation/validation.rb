@@ -10,4 +10,12 @@ module Validation
   def validate_guess(code)
     raise InputError unless /^[1-6]{4}$/.match?(code)
   end
+
+  def ckeck_for_hints?(hints)
+    hints < DIFFICULTIES.values[difficulty][:hints]
+  end
+
+  def ckeck_for_attempts?(attempts)
+    attempts < DIFFICULTIES.values[difficulty][:attempts]
+  end
 end

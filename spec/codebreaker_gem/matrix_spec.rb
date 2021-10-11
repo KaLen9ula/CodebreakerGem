@@ -24,7 +24,7 @@ module Codebreaker
 
     describe '#generate_sings' do
       it 'increases attempts by 1' do
-        expect { game.generate_signs('1111') }.to change(game, :attempts).by(1)
+        expect { game.generate_signs('1111') }.to change(game.user, :attempts).by(1)
       end
 
       it 'returns sthm' do

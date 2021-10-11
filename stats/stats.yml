@@ -1,0 +1,22 @@
+---
+- !ruby/object:Codebreaker::Game
+  code: ''
+  user: !ruby/object:Codebreaker::User
+    name: name1
+    attempts: 4
+    hints: 1
+  difficulty: 0
+- !ruby/object:Codebreaker::Game
+  code: ''
+  user: !ruby/object:Codebreaker::User
+    name: name2
+    attempts: 3
+    hints: 0
+  difficulty: 1
+- !ruby/object:Codebreaker::Game
+  code: ''
+  user: !ruby/object:Codebreaker::User
+    name: name3
+    attempts: 4
+    hints: 1
+  difficulty: 2

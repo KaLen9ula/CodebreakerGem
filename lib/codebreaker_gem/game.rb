@@ -8,6 +8,7 @@ require_relative 'validation/validation'
 require_relative 'validation/errors_include'
 require_relative 'matrix_matcher'
 require_relative 'game_config'
+require_relative 'user'
 
 module Codebreaker
   class Game
@@ -15,14 +16,12 @@ module Codebreaker
     include CodeMatcher
     include Settings
 
-    attr_accessor :code, :attempts, :hints, :available_hints
-    attr_reader :name, :difficulty
+    attr_accessor :code, :user, :available_hints
+    attr_reader :difficulty
 
-    def initialize(name: USER_NAME, code: GAME_CODE, attempts: GAME_ATTEMPTS, hints: GAME_HINTS)
-      @name = name
+    def initialize(code: GAME_CODE, user: User.new)
       @code = code
-      @attempts = attempts
-      @hints = hints
+      @user = user
     end
 
     def start
@@ -30,36 +29,23 @@ module Codebreaker
       @available_hints = @code.dup
     end
 
+    def difficulty=(difficulty)
+      @difficulty = DIFFICULTIES.keys.index(difficulty)
+    end
+
+    def generate_signs(input_value)
+      validate_guess(input_value)
+      user.attempts += ATTEMPTS_INCREMENT
+      display_signs(input_value)
+    end
+
     def use_hint
       return if @available_hints.empty?
 
       hint = @available_hints.chars.sample
       @available_hints.sub!(hint, '')
-      @hints -= HINTS_INCREMENT
+      user.hints -= HINTS_INCREMENT
       hint
-    end
-
-    def difficulty=(difficulty)
-      @difficulty = DIFFICULTIES.keys.index(difficulty)
-    end
-
-    def name=(name)
-      validate_name(name)
-      @name = name
-    end
-
-    def generate_signs(input_value)
-      validate_guess(input_value)
-      @attempts += ATTEMPTS_INCREMENT
-      display_signs(input_value)
-    end
-
-    def ckeck_for_hints?
-      @hints < DIFFICULTIES.values[difficulty][:hints]
-    end
-
-    def ckeck_for_attempts?
-      @attempts < DIFFICULTIES.values[difficulty][:attempts]
     end
 
     def check_for_difficulties

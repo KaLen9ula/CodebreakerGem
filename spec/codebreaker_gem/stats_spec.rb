@@ -3,25 +3,35 @@
 require_relative '../spec_requires'
 
 module Codebreaker
+  include FileStore
+
   RSpec.describe Stats do
     describe '#show_stats' do
-      test_games = []
-      [['name1', 4, 1, :easy], ['name1', 3, 0, :medium],
-       ['name1', 4, 1, :hell]].each do |name, attempts, hints, difficulty|
+      File.open(FILE_PATH, 'w') do |f|
+        f.write([].to_yaml)
+      end
+      [['name1', 4, 1, :easy], ['name2', 3, 0, :medium],
+       ['name3', 4, 1, :hell]].each do |name, attempts, hints, difficulty|
         test_game = Game.new
         test_game.difficulty = difficulty
-        test_game.name = name
-        test_game.attempts = attempts
-        test_game.hints = hints
-        test_games << test_game
+        test_game.user.name = name
+        test_game.user.attempts = attempts
+        test_game.user.hints = hints
+        Class.new.extend(FileStore).save_file(test_game)
       end
 
       expected_values = [
-        [1, 'name1', 2, 11, 4, 2, 1], [2, 'name1', 1, 11, 3, 2, 0], [3, 'name1', 0, 11, 4, 2, 1]
+        {number: 1, name: 'name3', difficulty: 2, available_attempts: 5, used_attempts: 4, available_hints: 1, used_hints: 1}, 
+        {number: 2, name: 'name2', difficulty: 1, available_attempts: 10, used_attempts: 3, available_hints: 1, used_hints: 0}, 
+        {number: 3, name: 'name1', difficulty: 0, available_attempts: 15, used_attempts: 4, available_hints: 2, used_hints: 1}
       ]
 
       it 'returns stats' do
-        expect(described_class.show_stats(test_games)).to eq expected_values
+        expect(Class.new.extend(Stats).show_stats).to eq expected_values
+      end
+
+      it 'reutrns array' do
+        expect(Class.new.extend(Stats).show_stats.class).to eq(Array)
       end
     end
   end

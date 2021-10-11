@@ -1,25 +1,25 @@
 # frozen_string_literal: true
 
+require_relative 'file_store'
+
 module Codebreaker
   module Stats
-    def self.show_stats(games)
-      games = games.sort_by { |game| [-game.difficulty, game.hints, game.attempts] }
-      group_statistics(games)
+    include FileStore
+
+    def show_stats
+      data = load_file || []
+      data.sort_by! { |game| [-game.difficulty, game.user.hints, game.user.attempts] }
+      group_statistics(data)
     end
 
-    def self.get_total_results(games)
-      games.group_by(&:name).transform_values do |grouped_games|
-        { attemts: grouped_games.sum(&:attempts), hints: grouped_games.sum(&:hints) }
-      end
-    end
+    private
 
-    def self.group_statistics(games)
-      total_results = get_total_results(games)
-      games.map.with_index do |game, index, name = game.name|
-        [index + 1, name, game.difficulty, total_results[name][:attemts], game.attempts,
-         total_results[name][:hints], game.hints]
+    def group_statistics(data)
+      data.map.with_index do |game, index, name = game.user.name|
+        {number: index + 1, name: name, difficulty: game.difficulty,
+         available_attempts: Settings::DIFFICULTIES[Settings::DIFFICULTIES.keys[game.difficulty]][:attempts], used_attempts: game.user.attempts,
+         available_hints: Settings::DIFFICULTIES[Settings::DIFFICULTIES.keys[game.difficulty]][:hints], used_hints: game.user.hints}
       end
     end
-    private_class_method :get_total_results, :group_statistics
   end
 end

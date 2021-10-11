@@ -28,8 +28,8 @@ module Codebreaker
     describe '#assign_name' do
       it 'sets name' do
         name = FFaker::Name.name
-        game.name = name
-        expect(game.name).to eq name
+        game.user.name = name
+        expect(game.user.name).to eq name
       end
     end
   end
