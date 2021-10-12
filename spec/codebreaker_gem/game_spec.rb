@@ -4,21 +4,41 @@ require_relative '../spec_requires'
 
 module Codebreaker
   RSpec.describe Game do
-    let(:game) { described_class.new }
+    let(:game) { Game.new }
 
     before { game.start }
 
     describe '#start' do
-      it 'saves code' do
+      it 'generates code' do
         expect(game.instance_variable_get(:@code)).not_to be_empty
       end
 
-      it 'saves 4 digit code' do
+      it 'code is 4 digit' do
         expect(game.instance_variable_get(:@code).size).to eq Game::CODE_LENGTH
       end
 
-      it 'saves code with 1 to 6 digits' do
+      it 'code is number with 1 to 6 digits' do
         expect(game.instance_variable_get(:@code)).to match(/[1-6]+/)
+      end
+    end
+
+    context 'end of game' do
+      it 'returns true if the guess is right' do
+        expect(game.win?('++++')).to be_truthy
+      end
+
+      it 'returns false if the guess us wrong' do
+        expect(game.win?('+---')).to be_falsy
+      end
+
+      it 'returns false if player has not lost' do
+        game.user.attempts = 1
+        expect(game.lose?).to be_falsy
+      end
+
+      it 'returns true if player has lost' do
+        game.user.attempts = 0
+        expect(game.lose?).to be_truthy
       end
     end
   end

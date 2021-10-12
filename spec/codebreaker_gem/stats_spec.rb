@@ -17,6 +17,7 @@ module Codebreaker
         test_game.user.name = name
         test_game.user.attempts = attempts
         test_game.user.hints = hints
+        test_game.stage = WIN
         Class.new.extend(FileStore).save_file(test_game)
       end
 
@@ -30,7 +31,7 @@ module Codebreaker
         expect(Class.new.extend(Stats).show_stats).to eq expected_values
       end
 
-      it 'reutrns array' do
+      it 'returns array' do
         expect(Class.new.extend(Stats).show_stats.class).to eq(Array)
       end
     end

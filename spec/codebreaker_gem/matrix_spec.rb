@@ -3,7 +3,7 @@ require 'pry'
 
 module Codebreaker
   RSpec.describe Game do
-    let(:game) { described_class.new }
+    let(:game) { Game.new }
     let(:matrix) do
       [
         ['6543', '2222', ''],

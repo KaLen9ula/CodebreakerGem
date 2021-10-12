@@ -1,0 +1,4 @@
+---
+- !ruby/object:RSpec::Mocks::Double
+  __expired: false
+  name: !ruby/class 'Codebreaker::Game'

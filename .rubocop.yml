@@ -23,7 +23,7 @@ Metrics/BlockLength:
   Exclude:
   - 'spec/**/*.rb'
 
-Metrics/AbcSize:
-  Enabled: false
-  Exclude: 
-  - 'lib/codebreaker_gem/stats.rb'
+# Metrics/AbcSize:
+#   Enabled: false
+#   Exclude: 
+#   - 'lib/codebreaker_gem/stats.rb'

@@ -16,17 +16,20 @@ module Codebreaker
     include CodeMatcher
     include Settings
 
-    attr_accessor :code, :user, :available_hints
+    attr_accessor :code, :user, :available_hints, :stage
     attr_reader :difficulty
 
-    def initialize(code: GAME_CODE, user: User.new)
+    def initialize(code: GAME_CODE, user: User.new, stage: START_GAME)
       @code = code
       @user = user
+      @stage = stage
     end
 
     def start
+      raise WrongStageError unless @stage == START_GAME
       @code = CODE_RANGE.sample(CODE_LENGTH).join
       @available_hints = @code.dup
+      @stage = IN_GAME
     end
 
     def difficulty=(difficulty)
@@ -34,6 +37,7 @@ module Codebreaker
     end
 
     def generate_signs(input_value)
+      raise WrongStageError unless @stage == IN_GAME
       validate_guess(input_value)
       user.attempts += ATTEMPTS_INCREMENT
       display_signs(input_value)
@@ -44,12 +48,28 @@ module Codebreaker
 
       hint = @available_hints.chars.sample
       @available_hints.sub!(hint, '')
-      user.hints -= HINTS_INCREMENT
+      user.hints -= HINTS_DECREMENT
       hint
     end
 
+    def check_for_hints?
+      user.hints < DIFFICULTIES.values[difficulty][:hints]
+    end
+
+    def check_for_attempts?
+      user.attempts < DIFFICULTIES.values[difficulty][:attempts]
+    end
+
+    def win?(result)
+      result == WINNING_RESULT
+    end
+
+    def lose?
+      user.attempts.zero?
+    end
+
     def difficulty_level
-      Settings::DIFFICULTIES.keys[difficulty]
+      DIFFICULTIES.keys[difficulty]
     end
 
     def check_for_difficulties

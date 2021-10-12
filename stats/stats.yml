@@ -5,6 +5,7 @@
     name: name1
     attempts: 4
     hints: 1
+  stage: :win
   difficulty: 0
 - !ruby/object:Codebreaker::Game
   code: ''
@@ -12,6 +13,7 @@
     name: name2
     attempts: 3
     hints: 0
+  stage: :win
   difficulty: 1
 - !ruby/object:Codebreaker::Game
   code: ''
@@ -19,4 +21,5 @@
     name: name3
     attempts: 4
     hints: 1
+  stage: :win
   difficulty: 2
