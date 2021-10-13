@@ -10,6 +10,7 @@ module Codebreaker
 
     def save_file(game)
       raise WrongStageError unless game.stage == Settings::WIN
+
       rating = load_file
       rating << game
       File.open(FILE_PATH, 'w') do |f|

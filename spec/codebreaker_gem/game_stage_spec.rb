@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 require_relative '../spec_requires'
 
 module Codebreaker
     RSpec.describe Game do
         let(:game) { Game.new }
         let(:test_class) { Class.new { include FileStore }.new }
-
-        before { game.stage = Settings::LOSE }
         
         context 'wrong stage error' do
+            before { game.stage = Settings::LOSE }
+
             it 'raises WrongStageError when user is in inapropriate to start stage' do
                 expect { game.start }.to raise_error WrongStageError
             end
@@ -20,6 +18,24 @@ module Codebreaker
 
             it 'raises WrongStageError when user is in inapropriate to saving results stage' do
                 expect { test_class.save_file(game) }.to raise_error WrongStageError
+            end
+        end
+
+        context 'jump to the other stage' do
+            it 'jumps from start stage to in game stage' do
+                expect { game.start }.to change { game.stage }.from(Settings::START_GAME).to(Settings::IN_GAME)
+            end
+
+            it 'jumps from in game stage to winning stage' do
+                game.start
+                game.code = '1642'
+                expect { game.end_game('1642') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::WIN)
+            end
+
+            it 'jumps from in game stage to losing stage' do
+                game.start
+                game.code = '1642'
+                expect { game.end_game('1642') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::WIN)
             end
         end
     end

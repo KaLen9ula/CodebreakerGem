@@ -1,12 +1,13 @@
-# frozen_string_literal: true
-
 require_relative '../spec_requires'
 
 module Codebreaker
   RSpec.describe Game do
     let(:game) { Game.new }
 
-    before { game.start }
+    before do 
+      game.start
+      game.code = '3142'
+    end
 
     describe '#start' do
       it 'generates code' do
@@ -24,11 +25,11 @@ module Codebreaker
 
     context 'end of game' do
       it 'returns true if the guess is right' do
-        expect(game.win?('++++')).to be_truthy
+        expect(game.win?('3142')).to be_truthy
       end
 
       it 'returns false if the guess us wrong' do
-        expect(game.win?('+---')).to be_falsy
+        expect(game.win?('3214')).to be_falsy
       end
 
       it 'returns false if player has not lost' do

@@ -6,7 +6,7 @@
     attempts: 4
     hints: 1
   stage: :win
-  difficulty: 0
+  difficulty: :easy
 - !ruby/object:Codebreaker::Game
   code: ''
   user: !ruby/object:Codebreaker::User
@@ -14,7 +14,7 @@
     attempts: 3
     hints: 0
   stage: :win
-  difficulty: 1
+  difficulty: :medium
 - !ruby/object:Codebreaker::Game
   code: ''
   user: !ruby/object:Codebreaker::User
@@ -22,4 +22,4 @@
     attempts: 4
     hints: 1
   stage: :win
-  difficulty: 2
+  difficulty: :hell

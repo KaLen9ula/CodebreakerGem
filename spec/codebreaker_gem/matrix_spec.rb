@@ -23,11 +23,11 @@ module Codebreaker
     before { game.start }
 
     describe '#generate_sings' do
-      it 'increases attempts by 1' do
-        expect { game.generate_signs('1111') }.to change(game.user, :attempts).by(1)
+      it 'decreases attempts by 1' do
+        expect { game.generate_signs('1111') }.to change(game.user, :attempts).by(-1)
       end
 
-      it 'returns sthm' do
+      it 'matches generated code and guessed by user code' do
         matrix.each do |code, guess, expected|
           game.code = code
           expect(game.generate_signs(guess)).to eq expected

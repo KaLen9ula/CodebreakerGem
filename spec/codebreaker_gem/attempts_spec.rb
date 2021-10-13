@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../spec_requires'
 
 module Codebreaker
@@ -20,14 +18,15 @@ module Codebreaker
       end
 
       it 'returns true if attempt was not used' do
+        game.user.attempts = 1
         expect(game.check_for_attempts?).to be_truthy
       end
 
-      # it 'returns false if attempt was used' do
-      #   game.generate_signs('1111')
-      #   game.use_hint
-      #   expect(game.check_for_attempts?).to be_falsy
-      # end
+      it 'returns false if attempts were used' do
+        game.user.attempts = 1
+        game.generate_signs('1111')
+        expect(game.check_for_attempts?).to be_falsy
+      end
     end
   end
 end

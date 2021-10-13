@@ -16,31 +16,36 @@ module Codebreaker
     include CodeMatcher
     include Settings
 
-    attr_accessor :code, :user, :available_hints, :stage
-    attr_reader :difficulty
+    attr_accessor :code, :user, :available_hints, :stage, :difficulty
 
-    def initialize(code: GAME_CODE, user: User.new, stage: START_GAME)
+    def initialize(code: GAME_CODE, user: User.new, stage: START_GAME, difficulty: DIFFICULTIES)
       @code = code
       @user = user
       @stage = stage
+      @difficulty = difficulty
     end
 
     def start
       raise WrongStageError unless @stage == START_GAME
+
       @code = CODE_RANGE.sample(CODE_LENGTH).join
       @available_hints = @code.dup
       @stage = IN_GAME
     end
 
-    def difficulty=(difficulty)
-      @difficulty = DIFFICULTIES.keys.index(difficulty)
-    end
-
     def generate_signs(input_value)
       raise WrongStageError unless @stage == IN_GAME
+
       validate_guess(input_value)
-      user.attempts += ATTEMPTS_INCREMENT
+      user.attempts -= ATTEMPTS_INCREMENT
       display_signs(input_value)
+    end
+
+    def assign_difficulty(input)
+      return unless DIFFICULTIES.include?(input.to_sym)
+
+      user.attempts = DIFFICULTIES[input.to_sym][:attempts]
+      user.hints = DIFFICULTIES[input.to_sym][:hints]
     end
 
     def use_hint
@@ -53,27 +58,34 @@ module Codebreaker
     end
 
     def check_for_hints?
-      user.hints < DIFFICULTIES.values[difficulty][:hints]
+      (user.hints < DIFFICULTIES[@difficulty][:hints]) && user.hints.positive?
     end
 
     def check_for_attempts?
-      user.attempts < DIFFICULTIES.values[difficulty][:attempts]
+      (user.attempts < DIFFICULTIES[@difficulty][:attempts]) && user.attempts.positive?
     end
 
     def win?(result)
-      result == WINNING_RESULT
+      result == @code
     end
 
     def lose?
       user.attempts.zero?
     end
 
-    def difficulty_level
-      DIFFICULTIES.keys[difficulty]
-    end
-
     def check_for_difficulties
       DIFFICULTIES
+    end
+
+    def end_game(guess)
+      raise WrongStageError unless @stage == IN_GAME
+
+      if win?(guess)
+        @stage = WIN
+      elsif lose?
+        @stage = LOSE
+      end
+      @stage
     end
 
     def display_signs(input_value)
