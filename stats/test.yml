@@ -1,4 +1,7 @@
 ---
-- !ruby/object:RSpec::Mocks::Double
-  __expired: false
-  name: !ruby/class 'Codebreaker::Game'
+- :difficulty: :easy
+  :available_attempts: 15
+  :available_hints: 2
+  :name: player1
+  :used_attempts: 15
+  :used_hints: 2

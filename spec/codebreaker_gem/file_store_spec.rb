@@ -5,7 +5,8 @@ require_relative '../spec_requires'
 module Codebreaker
     RSpec.describe FileStore do
         let(:test_class) { Class.new { include FileStore }.new }
-        let(:game) { double(Game, difficulty: 0, hints: 2, attempts: 15, stage: Settings::WIN) }
+        let(:user) { double(User, name: 'player1', hints: 2, attempts: 15) }
+        let(:game) { double(Game, user: user, difficulty: :easy, stage: Settings::WIN) }
         
         before do
             File.open('stats/test.yml', 'w') do |f|

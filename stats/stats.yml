@@ -1,25 +1,19 @@
 ---
-- !ruby/object:Codebreaker::Game
-  code: ''
-  user: !ruby/object:Codebreaker::User
-    name: name1
-    attempts: 4
-    hints: 1
-  stage: :win
-  difficulty: :easy
-- !ruby/object:Codebreaker::Game
-  code: ''
-  user: !ruby/object:Codebreaker::User
-    name: name2
-    attempts: 3
-    hints: 0
-  stage: :win
-  difficulty: :medium
-- !ruby/object:Codebreaker::Game
-  code: ''
-  user: !ruby/object:Codebreaker::User
-    name: name3
-    attempts: 4
-    hints: 1
-  stage: :win
-  difficulty: :hell
+- :difficulty: :easy
+  :available_attempts: 15
+  :available_hints: 2
+  :name: name1
+  :used_attempts: 4
+  :used_hints: 1
+- :difficulty: :medium
+  :available_attempts: 10
+  :available_hints: 1
+  :name: name2
+  :used_attempts: 3
+  :used_hints: 0
+- :difficulty: :hell
+  :available_attempts: 5
+  :available_hints: 1
+  :name: name3
+  :used_attempts: 4
+  :used_hints: 1
