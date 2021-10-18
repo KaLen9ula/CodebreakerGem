@@ -1,4 +1,4 @@
-require_relative 'game_config'
+require_relative 'autoloader'
 
 module Codebreaker
   include Settings

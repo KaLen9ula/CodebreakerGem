@@ -6,7 +6,7 @@ module Codebreaker
 
     before do 
       game.start
-      game.code = '3142'
+      game.instance_variable_set(:@code, '3142')
     end
 
     describe '#start' do

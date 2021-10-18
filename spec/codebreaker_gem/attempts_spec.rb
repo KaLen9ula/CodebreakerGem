@@ -9,7 +9,7 @@ module Codebreaker
 
     before(:each) do
       game.start
-      game.difficulty = difficulty
+      game.instance_variable_set(:@difficulty, difficulty)
     end
 
     describe '#available_attempts' do

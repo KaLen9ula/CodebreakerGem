@@ -3,21 +3,27 @@
 require_relative '../spec_requires'
 
 module Codebreaker
-  include FileStore
 
   RSpec.describe Stats do
     describe '#show_stats' do
-      File.open(FILE_PATH, 'w') do |f|
-        f.write([].to_yaml)
+      
+      before do
+        stub_const('FileStore::FILE_NAME', 'test_2.yml')
+        stub_const('FileStore::FILE_PATH', 'spec/fixtures/')
       end
+
+      after do
+        File.delete(FileStore::FILE_PATH + FileStore::FILE_NAME) if File.exist?(FileStore::FILE_PATH + FileStore::FILE_NAME)
+      end
+
       [['name1', 4, 1, :easy], ['name2', 3, 0, :medium],
        ['name3', 4, 1, :hell]].each do |name, attempts, hints, difficulty|
         test_game = Game.new
-        test_game.difficulty = difficulty
-        test_game.user.name = name
+        test_game.instance_variable_set(:@difficulty, difficulty)
+        test_game.user.instance_variable_set(:@name, name)
         test_game.user.attempts = attempts
         test_game.user.hints = hints
-        test_game.stage = WIN
+        test_game.instance_variable_set(:@stage, WIN)
         Class.new.extend(FileStore).save_file(test_game)
       end
 

@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
+require_relative '../game_config'
 require_relative 'errors_include'
 
-module Validation
-  def validate_name(name)
-    raise LengthError unless (3..20).cover?(name.length)
-  end
+module Codebreaker
+  module Validation
+    include Settings
 
-  def validate_guess(code)
-    raise InputError unless /^[1-6]{4}$/.match?(code)
+    def validate_name(name)
+      raise LengthError unless NAME_LENGTH.cover?(name.length)
+    end
+
+    def validate_guess(code)
+      raise InputError unless CODE_NUMBERS.match?(code)
+    end
   end
 end

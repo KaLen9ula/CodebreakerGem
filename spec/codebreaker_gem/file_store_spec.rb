@@ -9,12 +9,14 @@ module Codebreaker
         let(:game) { double(Game, user: user, difficulty: :easy, stage: Settings::WIN) }
         
         before do
-            File.open('stats/test.yml', 'w') do |f|
-                f.write([].to_yaml)
-            end
-            stub_const('Codebreaker::FileStore::FILE_PATH', 'stats/test.yml')
+            stub_const('Codebreaker::FileStore::FILE_NAME', 'test.yml')
+            stub_const('Codebreaker::FileStore::FILE_PATH', 'spec/fixtures/')
         end
 
+        after do
+            File.delete(FileStore::FILE_PATH + FileStore::FILE_NAME) if File.exist?(FileStore::FILE_PATH + FileStore::FILE_NAME)
+        end
+        
         describe '#load_file' do
             it 'returns true when file is empty' do
                 expect(test_class.load_file).to eq []
@@ -23,7 +25,7 @@ module Codebreaker
 
         describe '#save_file' do
             it 'returns true when file is not empty' do
-                expect { test_class.save_file(game) }.to change { test_class.load_file.size }.by(1)
+                expect { test_class.save_file(game) }.to change { test_class.load_file.size }.from(0).to(1)
             end
         end
     end

@@ -4,11 +4,7 @@ require 'i18n'
 I18n.load_path << Dir[['config', 'locales', '**', '*.yml'].join('/')]
 I18n.config.available_locales = :en, :ru
 
-require_relative 'validation/validation'
-require_relative 'validation/errors_include'
-require_relative 'matrix_matcher'
-require_relative 'game_config'
-require_relative 'user'
+require_relative 'autoloader'
 
 module Codebreaker
   class Game
@@ -16,9 +12,9 @@ module Codebreaker
     include CodeMatcher
     include Settings
 
-    attr_accessor :code, :user, :available_hints, :stage, :difficulty
+    attr_reader :possible_hints, :code, :user, :stage, :difficulty
 
-    def initialize(code: GAME_CODE, user: User.new, stage: START_GAME, difficulty: DIFFICULTIES)
+    def initialize(code: '', user: User.new, stage: START_GAME, difficulty: DIFFICULTIES)
       @code = code
       @user = user
       @stage = stage
@@ -29,7 +25,7 @@ module Codebreaker
       raise WrongStageError unless @stage == START_GAME
 
       @code = CODE_RANGE.sample(CODE_LENGTH).join
-      @available_hints = @code.dup
+      @possible_hints = @code.dup
       @stage = IN_GAME
     end
 
@@ -37,7 +33,7 @@ module Codebreaker
       raise WrongStageError unless @stage == IN_GAME
 
       validate_guess(input_value)
-      user.attempts -= ATTEMPTS_INCREMENT
+      user.attempts -= ATTEMPTS_DECREMENT
       display_signs(input_value)
     end
 
@@ -49,16 +45,16 @@ module Codebreaker
     end
 
     def use_hint
-      return if @available_hints.empty?
+      return if @possible_hints.empty?
 
-      hint = @available_hints.chars.sample
-      @available_hints.sub!(hint, '')
+      hint = @possible_hints.chars.sample
+      @possible_hints.sub!(hint, '')
       user.hints -= HINTS_DECREMENT
       hint
     end
 
     def check_for_hints?
-      (user.hints < DIFFICULTIES[@difficulty][:hints]) && user.hints.positive?
+      (user.hints <= DIFFICULTIES[@difficulty][:hints]) && user.hints.positive?
     end
 
     def check_for_attempts?

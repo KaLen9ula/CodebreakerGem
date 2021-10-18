@@ -9,7 +9,7 @@ module Codebreaker
 
     before(:each) do
       game.start
-      game.difficulty = difficulty
+      game.instance_variable_set(:@difficulty, difficulty)
     end 
 
     describe '#hint' do
@@ -18,14 +18,15 @@ module Codebreaker
       end
 
       it 'returns 1 if hint was not used' do
-        expect(game.user.attempts).eql? 1
+        game.user.hints = 1
+        expect(game.check_for_hints?).to be_truthy
       end
 
-      it 'returns nothing when all hints are used' do
-        game.available_hints = '1'
+      it 'returns 0 when all hints are used' do
+        game.user.hints = 1
         game.use_hint
 
-        expect(game.use_hint).to eq nil
+        expect(game.user.hints).to eq 0
       end
     end
   end

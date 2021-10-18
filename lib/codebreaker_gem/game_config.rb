@@ -2,12 +2,14 @@ module Codebreaker
   module Settings
     CODE_RANGE = (1..6).to_a.freeze
     CODE_LENGTH = 4
-    USER_NAME = ''.freeze
-    GAME_CODE = ''.freeze
+    CODE_NUMBERS = /^[1-6]{4}$/.freeze
+    NAME_LENGTH = (3..20).freeze
+    PLUS = '+'.freeze
+    MINUS = '-'.freeze
     GAME_ATTEMPTS = 0
     GAME_HINTS = 0
     HINTS_DECREMENT = 1
-    ATTEMPTS_INCREMENT = 1
+    ATTEMPTS_DECREMENT = 1
     START_GAME = :start
     IN_GAME = :game
     WIN = :win

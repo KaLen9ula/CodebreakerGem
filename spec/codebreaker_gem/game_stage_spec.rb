@@ -6,7 +6,7 @@ module Codebreaker
         let(:test_class) { Class.new { include FileStore }.new }
         
         context 'wrong stage error' do
-            before { game.stage = Settings::LOSE }
+            before { game.instance_variable_set(:@stage, Settings::LOSE) }
 
             it 'raises WrongStageError when user is in inapropriate to start stage' do
                 expect { game.start }.to raise_error WrongStageError
@@ -28,14 +28,14 @@ module Codebreaker
 
             it 'jumps from in game stage to winning stage' do
                 game.start
-                game.code = '1642'
+                game.instance_variable_set(:@code, '1642')
                 expect { game.end_game('1642') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::WIN)
             end
 
             it 'jumps from in game stage to losing stage' do
                 game.start
-                game.code = '1642'
-                expect { game.end_game('1642') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::WIN)
+                game.instance_variable_set(:@code, '1642')
+                expect { game.end_game('1624') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::LOSE)
             end
         end
     end

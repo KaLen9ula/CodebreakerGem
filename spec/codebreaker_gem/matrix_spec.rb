@@ -4,7 +4,11 @@ require 'pry'
 module Codebreaker
   RSpec.describe Game do
     let(:game) { Game.new }
-    let(:matrix) do
+
+    before { game.start }
+
+    describe '#generate_sings' do
+      matrix = 
       [
         ['6543', '2222', ''],
         ['2233', '1113', '+'],
@@ -18,18 +22,14 @@ module Codebreaker
         ['1234', '1234', '++++'],
         ['5143', '5413', '++--']
       ]
-    end
 
-    before { game.start }
-
-    describe '#generate_sings' do
       it 'decreases attempts by 1' do
         expect { game.generate_signs('1111') }.to change(game.user, :attempts).by(-1)
       end
 
-      it 'matches generated code and guessed by user code' do
-        matrix.each do |code, guess, expected|
-          game.code = code
+      matrix.each do |code, guess, expected|
+        it "returnes #{expected} when generated code is #{code} and guessed by user code is #{guess}" do
+          game.instance_variable_set(:@code, code)
           expect(game.generate_signs(guess)).to eq expected
         end
       end
