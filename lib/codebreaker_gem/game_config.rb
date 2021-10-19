@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Codebreaker
   module Settings
     CODE_RANGE = (1..6).to_a.freeze
     CODE_LENGTH = 4
     CODE_NUMBERS = /^[1-6]{4}$/.freeze
     NAME_LENGTH = (3..20).freeze
-    PLUS = '+'.freeze
-    MINUS = '-'.freeze
+    PLUS = '+'
+    MINUS = '-'
     GAME_ATTEMPTS = 0
     GAME_HINTS = 0
     HINTS_DECREMENT = 1

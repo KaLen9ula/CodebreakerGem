@@ -1,5 +1,4 @@
 require_relative '../spec_requires'
-require 'pry'
 
 module Codebreaker
   RSpec.describe Game do

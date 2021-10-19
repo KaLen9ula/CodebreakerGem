@@ -14,11 +14,3 @@ Layout/LineLength:
   Max: 120
   Exclude: 
   - 'lib/codebreaker_gem/game.rb'
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Metrics/BlockLength:
-  Max: 30
-  Exclude:
-  - 'spec/**/*.rb'

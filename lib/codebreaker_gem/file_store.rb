@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Codebreaker
   module FileStore
     attr_reader :file_path
 
-    FILE_PATH = 'stats/'.freeze
-    FILE_NAME = 'stats.yml'.freeze
+    FILE_PATH = 'stats/'
+    FILE_NAME = 'stats.yml'
 
     def save_file(game)
       raise WrongStageError unless game.stage == Settings::WIN
@@ -19,6 +21,7 @@ module Codebreaker
 
     def load_file
       create_directory(FILE_PATH) unless Dir.exist?(FILE_PATH)
+      File.open(FILE_NAME, 'w') {} unless File.exist?(FILE_NAME)
       YAML.load_file(FILE_PATH + FILE_NAME)[:codebreakers] || []
     rescue Errno::ENOENT
       []
