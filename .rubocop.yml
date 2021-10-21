@@ -6,6 +6,7 @@ AllCops:
   Exclude:
     - 'vendor/bundle/**/*'
     - 'spec/**/*.rb'
+  TargetRubyVersion: 2.5.0
 
 Style/Documentation:
   Enabled: false
