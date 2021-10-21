@@ -1,11 +1,10 @@
 # frozen_string_literal: true
+
 require 'pry'
 
 module Codebraker
   module FileStore
-    attr_reader :file_path
-
-    FILE_PATH = 'stats/'
+    FILE_DIRECTORY = 'stats'
     FILE_NAME = 'stats.yml'
 
     def save_file(game)
@@ -14,7 +13,7 @@ module Codebraker
       create_directory
       rating = load_file
       rating << game_data(game)
-      store = YAML::Store.new(FILE_PATH + FILE_NAME)
+      store = YAML::Store.new(storage_path)
       store.transaction do
         store[:codebrakers] = rating
       end
@@ -22,20 +21,20 @@ module Codebraker
     end
 
     def load_file
-      YAML.load_file(FILE_PATH + FILE_NAME)[:codebrakers] || []
+      YAML.load_file(storage_path)[:codebrakers] || []
     rescue Errno::ENOENT
       []
+    end
+
+    def storage_path
+      File.join(FILE_DIRECTORY, FILE_NAME)
     end
 
     private
 
     def create_directory
-      Dir.mkdir(FILE_PATH) unless Dir.exist?(FILE_PATH)
+      Dir.mkdir(FILE_DIRECTORY) unless Dir.exist?(FILE_DIRECTORY)
       File.open(FILE_NAME, 'w') unless File.exist?(FILE_NAME)
-    end
-    
-    def file_path
-      FILE_PATH + FILE_NAME
     end
 
     def game_data(game)
