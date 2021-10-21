@@ -11,6 +11,7 @@ module Codebreaker
     include Validation
     include CodeMatcher
     include Settings
+    include FileStore
 
     attr_reader :possible_hints, :code, :user, :stage, :difficulty
 
@@ -82,6 +83,10 @@ module Codebreaker
         @stage = LOSE
       end
       @stage
+    end
+
+    def save_game(game)
+      save_file(game)
     end
 
     def display_signs(input_value)
