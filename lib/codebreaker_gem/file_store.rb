@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'pry'
 
 module Codebreaker
   module FileStore
@@ -10,6 +11,7 @@ module Codebreaker
     def save_file(game)
       raise WrongStageError unless game.stage == Settings::WIN
 
+      create_directory
       rating = load_file
       rating << game_data(game)
       store = YAML::Store.new(FILE_PATH + FILE_NAME)
@@ -20,8 +22,6 @@ module Codebreaker
     end
 
     def load_file
-      create_directory(FILE_PATH) unless Dir.exist?(FILE_PATH)
-      File.open(FILE_NAME, 'w') {} unless File.exist?(FILE_NAME)
       YAML.load_file(FILE_PATH + FILE_NAME)[:codebreakers] || []
     rescue Errno::ENOENT
       []
@@ -29,10 +29,13 @@ module Codebreaker
 
     private
 
-    def create_directory(path)
-      Dir.mkdir(path)
-    rescue Errno::EEXIST
-      []
+    def create_directory
+      Dir.mkdir(FILE_PATH) unless Dir.exist?(FILE_PATH)
+      File.open(FILE_NAME, 'w') unless File.exist?(FILE_NAME)
+    end
+    
+    def file_path
+      FILE_PATH + FILE_NAME
     end
 
     def game_data(game)
