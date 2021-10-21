@@ -1,8 +1,8 @@
 require_relative '../spec_requires'
 
-module Codebreaker
+module Codebraker
   RSpec.describe Game do
-    before { stub_const('Codebreaker::Game::DIFFICULTIES', { difficulty => { attempts: 1, hints: 1 } }) }
+    before { stub_const('Codebraker::Game::DIFFICULTIES', { difficulty => { attempts: 1, hints: 1 } }) }
 
     let(:game) { described_class.new }
     let(:difficulty) { :easy }

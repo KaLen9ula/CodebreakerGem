@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'codebreaker_gem/version'
+require 'codebraker/version'
 
-module Codebreaker
+module Codebraker
   class Error < StandardError; end
 end

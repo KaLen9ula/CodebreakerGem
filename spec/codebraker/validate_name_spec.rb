@@ -2,7 +2,7 @@
 
 require_relative '../spec_requires'
 
-module Codebreaker
+module Codebraker
   RSpec.describe Validation do
     let(:test_name) { Class.new { extend Validation } }
 

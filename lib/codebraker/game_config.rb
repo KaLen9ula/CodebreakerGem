@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Codebreaker
+module Codebraker
   module Settings
     CODE_RANGE = (1..6).to_a.freeze
     CODE_LENGTH = 4

@@ -1,6 +1,6 @@
 require_relative '../spec_requires'
 
-module Codebreaker
+module Codebraker
   RSpec.describe Game do
     let(:game) { Game.new }
 

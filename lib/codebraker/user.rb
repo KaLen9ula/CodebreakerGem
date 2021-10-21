@@ -2,7 +2,7 @@
 
 require_relative 'autoloader'
 
-module Codebreaker
+module Codebraker
   class User
     include Validation
     include Settings

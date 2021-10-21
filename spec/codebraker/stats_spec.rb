@@ -2,7 +2,7 @@
 
 require_relative '../spec_requires'
 
-module Codebreaker
+module Codebraker
 
   RSpec.describe Stats do
     describe '#show_stats' do

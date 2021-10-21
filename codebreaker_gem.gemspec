@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'lib/codebreaker_gem/version'
+require_relative 'lib/codebraker/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'codebreaker_gem'
-  spec.version       = Codebreaker::VERSION
+  spec.name          = 'codebraker'
+  spec.version       = Codebraker::VERSION
   spec.authors       = ['KaLen9ula']
   spec.email         = ['andruhovickola167@gmail.com']
-  spec.summary       = 'Gem for a Codebreaker game'
+  spec.summary       = 'Gem for a Codebraker game'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
 
   # Specify which files should be added to the gem when it is released.

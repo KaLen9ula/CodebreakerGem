@@ -8,7 +8,7 @@ SimpleCov.start do
 end
 
 require 'bundler/setup'
-require 'codebreaker_gem'
+require 'codebraker'
 require 'ffaker'
 
 require_relative 'spec_requires'

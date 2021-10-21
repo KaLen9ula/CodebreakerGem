@@ -2,7 +2,7 @@
 
 require_relative 'autoloader'
 
-module Codebreaker
+module Codebraker
   include Settings
 
   module CodeMatcher
@@ -29,7 +29,7 @@ module Codebreaker
     private
 
     def code_selector(input_value)
-      (0...Codebreaker::CODE_LENGTH).select { |index| input_value[index] == @code[index] }
+      (0...Codebraker::CODE_LENGTH).select { |index| input_value[index] == @code[index] }
     end
 
     def char_inclusion?(char, extra_char)

@@ -6,7 +6,7 @@ I18n.config.available_locales = :en, :ru
 
 require_relative 'autoloader'
 
-module Codebreaker
+module Codebraker
   class Game
     include Validation
     include CodeMatcher

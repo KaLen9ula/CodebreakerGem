@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    codebreaker_gem (0.1.0)
+    codebraker (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -76,7 +76,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  codebreaker_gem!
+  codebraker!
   fasterer (~> 0.8.3)
   ffaker (~> 2.20.0)
   i18n (~> 1.8.10)

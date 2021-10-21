@@ -14,4 +14,4 @@ Style/Documentation:
 Layout/LineLength:
   Max: 120
   Exclude: 
-  - 'lib/codebreaker_gem/game.rb'
+  - 'lib/codebraker/game.rb'

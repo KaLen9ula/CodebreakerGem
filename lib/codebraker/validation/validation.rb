@@ -3,7 +3,7 @@
 require_relative '../game_config'
 require_relative 'errors_include'
 
-module Codebreaker
+module Codebraker
   module Validation
     include Settings
 

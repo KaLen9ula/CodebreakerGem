@@ -2,7 +2,7 @@
 
 require_relative 'autoloader'
 
-module Codebreaker
+module Codebraker
   module Stats
     include FileStore
 

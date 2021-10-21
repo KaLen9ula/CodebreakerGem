@@ -2,15 +2,15 @@
 
 require_relative '../spec_requires'
 
-module Codebreaker
+module Codebraker
     RSpec.describe FileStore do
         let(:test_class) { Class.new { include FileStore }.new }
         let(:user) { double(User, name: 'player1', hints: 2, attempts: 15) }
         let(:game) { double(Game, user: user, difficulty: :easy, stage: Settings::WIN) }
         
         before do
-            stub_const('Codebreaker::FileStore::FILE_NAME', 'test.yml')
-            stub_const('Codebreaker::FileStore::FILE_PATH', 'spec/fixtures/')
+            stub_const('Codebraker::FileStore::FILE_NAME', 'test.yml')
+            stub_const('Codebraker::FileStore::FILE_PATH', 'spec/fixtures/')
         end
 
         after do

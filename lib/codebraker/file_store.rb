@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'pry'
 
-module Codebreaker
+module Codebraker
   module FileStore
     attr_reader :file_path
 
@@ -16,13 +16,13 @@ module Codebreaker
       rating << game_data(game)
       store = YAML::Store.new(FILE_PATH + FILE_NAME)
       store.transaction do
-        store[:codebreakers] = rating
+        store[:codebrakers] = rating
       end
       store
     end
 
     def load_file
-      YAML.load_file(FILE_PATH + FILE_NAME)[:codebreakers] || []
+      YAML.load_file(FILE_PATH + FILE_NAME)[:codebrakers] || []
     rescue Errno::ENOENT
       []
     end
