@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
+require_relative 'data_sort'
 require 'pry'
 
 module Codebraker
   module FileStore
+    include DataSort
+
     FILE_DIRECTORY = 'stats'
     FILE_NAME = 'stats.yml'
 
     def save_file(game)
       raise WrongStageError unless game.stage == Settings::WIN
 
-      create_directory
-      rating = load_file
-      rating << game_data(game)
+      rating = storage_exists? ? load_file : create_storage[:codebrakers]
+      rating << fetch_game_data(game)
       store = YAML::Store.new(storage_path)
       store.transaction do
         store[:codebrakers] = rating
@@ -21,36 +23,28 @@ module Codebraker
     end
 
     def load_file
-      YAML.load_file(storage_path)[:codebrakers] || []
-    rescue Errno::ENOENT
-      []
+      YAML.load_file(storage_path)[:codebrakers]
     end
+
+    def create_storage
+      Dir.mkdir(FILE_DIRECTORY) unless Dir.exist?(FILE_DIRECTORY)
+      unless File.exist?(storage_path)
+        new_file = YAML::Store.new(storage_path)
+        new_file.transaction do
+          new_file[:codebrakers] = []
+        end
+      end
+      YAML.load_file(storage_path)
+    end
+
+    private
 
     def storage_path
       File.join(FILE_DIRECTORY, FILE_NAME)
     end
 
-    private
-
-    def create_directory
-      Dir.mkdir(FILE_DIRECTORY) unless Dir.exist?(FILE_DIRECTORY)
-      File.open(FILE_NAME, 'w') unless File.exist?(FILE_NAME)
-    end
-
-    def game_data(game)
-      game_results = {}
-      game_results[:difficulty] = game.difficulty
-      game_results[:available_attempts] = Settings::DIFFICULTIES[game.difficulty][:attempts]
-      game_results[:available_hints] = Settings::DIFFICULTIES[game.difficulty][:hints]
-      game_results.merge(fetch_user_data(game))
-    end
-
-    def fetch_user_data(game)
-      user_data = {}
-      user_data[:name] = game.user.name
-      user_data[:used_attempts] = game.user.attempts
-      user_data[:used_hints] = game.user.hints
-      user_data
+    def storage_exists?
+      Dir.exist?(FILE_DIRECTORY) && File.exist?(storage_path)
     end
   end
 end

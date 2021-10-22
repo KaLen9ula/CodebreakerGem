@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../spec_requires'
+require 'pry'
 
 module Codebraker
 
@@ -16,20 +17,6 @@ module Codebraker
       before do
         stub_const('Codebraker::FileStore::FILE_NAME', 'test_2.yml')
         stub_const('Codebraker::FileStore::FILE_DIRECTORY', 'spec/fixtures')
-        [['name1', 4, 1, :easy], ['name2', 3, 0, :medium],
-        ['name3', 4, 1, :hell]].each do |name, attempts, hints, difficulty|
-          test_game = Game.new
-          test_game.instance_variable_set(:@difficulty, difficulty)
-          test_game.user.instance_variable_set(:@name, name)
-          test_game.user.attempts = attempts
-          test_game.user.hints = hints
-          test_game.instance_variable_set(:@stage, WIN)
-          test_module.save_file(test_game)
-        end
-      end
-
-      after do
-        File.delete(test_module.storage_path) if File.exist?(test_module.storage_path)
       end
 
       it 'returns stats' do
