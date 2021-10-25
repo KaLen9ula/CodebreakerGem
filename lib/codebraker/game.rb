@@ -13,7 +13,8 @@ module Codebraker
     include Settings
     include FileStore
 
-    attr_reader :possible_hints, :code, :user, :stage, :difficulty
+    attr_accessor :difficulty
+    attr_reader :possible_hints, :code, :user, :stage
 
     def initialize(code: '', user: User.new, stage: START_GAME, difficulty: DIFFICULTIES)
       @code = code
