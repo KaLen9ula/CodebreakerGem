@@ -40,11 +40,9 @@ module Codebraker
       display_signs(input_value)
     end
 
-    def assign_difficulty(input)
-      return unless DIFFICULTIES.include?(input.to_sym)
-
-      user.attempts = DIFFICULTIES[input.to_sym][:attempts]
-      user.hints = DIFFICULTIES[input.to_sym][:hints]
+    def assign_difficulty
+      user.attempts = DIFFICULTIES[@difficulty][:attempts]
+      user.hints = DIFFICULTIES[@difficulty][:hints]
     end
 
     def use_hint
