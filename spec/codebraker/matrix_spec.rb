@@ -3,8 +3,12 @@ require_relative '../spec_requires'
 module Codebraker
   RSpec.describe Game do
     let(:game) { Game.new }
+    let(:difficulty) { :easy }
 
-    before { game.start }
+    before(:each) do
+       game.instance_variable_set(:@difficulty, difficulty)
+       game.start 
+    end
 
     describe '#generate_sings' do
       matrix = 

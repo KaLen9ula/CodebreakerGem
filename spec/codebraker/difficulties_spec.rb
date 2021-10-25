@@ -5,8 +5,12 @@ require_relative '../spec_requires'
 module Codebraker
   RSpec.describe Game do
     let(:game) { described_class.new }
+    let(:difficulty) { :easy }
 
-    before { game.start }
+    before(:each) do
+       game.instance_variable_set(:@difficulty, difficulty)
+       game.start 
+    end
 
     describe '#available_difficulties' do
       it 'returns hash' do

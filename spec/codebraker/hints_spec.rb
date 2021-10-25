@@ -8,8 +8,8 @@ module Codebraker
     let(:difficulty) { :easy }
 
     before(:each) do
-      game.start
       game.instance_variable_set(:@difficulty, difficulty)
+      game.start
     end 
 
     describe '#hint' do

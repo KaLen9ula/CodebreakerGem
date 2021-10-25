@@ -3,9 +3,10 @@ require_relative '../spec_requires'
 module Codebraker
   RSpec.describe Game do
     let(:game) { Game.new }
+    let(:difficulty) { :easy }
 
-    before do 
-      game.start
+    before(:each) do
+      game.instance_variable_set(:@difficulty, difficulty)
       game.instance_variable_set(:@code, '3142')
     end
 

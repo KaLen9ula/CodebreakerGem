@@ -64,26 +64,21 @@ module Codebraker
     end
 
     def win?(result)
-      result == @code
+      return unless result == @code
+
+      @stage = WIN
+      true
     end
 
     def lose?
-      user.attempts.zero?
+      return unless user.attempts.zero?
+
+      @stage = LOSE
+      true
     end
 
     def check_for_difficulties
       DIFFICULTIES
-    end
-
-    def end_game(guess)
-      raise WrongStageError unless @stage == IN_GAME
-
-      if win?(guess)
-        @stage = WIN
-      elsif lose?
-        @stage = LOSE
-      end
-      @stage
     end
 
     def save_game(game)

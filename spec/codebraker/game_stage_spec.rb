@@ -2,8 +2,15 @@ require_relative '../spec_requires'
 
 module Codebraker
   RSpec.describe Game do
+    before { stub_const('Codebraker::Game::DIFFICULTIES', { difficulty => { attempts: 1, hints: 1 } }) }
+
     let(:game) { Game.new }
     let(:test_class) { Class.new { include FileStore }.new }
+    let(:difficulty) { :easy }
+
+    before(:each) do
+       game.instance_variable_set(:@difficulty, difficulty) 
+    end
         
     context 'wrong stage error' do
       before { game.instance_variable_set(:@stage, Settings::LOSE) }
@@ -29,13 +36,14 @@ module Codebraker
       it 'jumps from in game stage to winning stage' do
         game.start
         game.instance_variable_set(:@code, '1642')
-        expect { game.end_game('1642') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::WIN)
+        expect { game.win?('1642') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::WIN)
       end
 
       it 'jumps from in game stage to losing stage' do
         game.start
         game.instance_variable_set(:@code, '1642')
-        expect { game.end_game('1624') }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::LOSE)
+        game.generate_signs('1111')
+        expect { game.lose? }.to change { game.stage }.from(Settings::IN_GAME).to(Settings::LOSE)
       end
     end
   end
