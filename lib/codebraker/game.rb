@@ -29,6 +29,7 @@ module Codebraker
 
       @code = CODE_RANGE.sample(CODE_LENGTH).join
       @possible_hints = @code.dup
+      assign_difficulty
       @stage = IN_GAME
     end
 
