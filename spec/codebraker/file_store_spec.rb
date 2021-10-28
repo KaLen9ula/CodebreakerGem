@@ -32,7 +32,7 @@ module Codebraker
 
     describe '#save_file' do
       let(:expected_values) {[
-        {:available_attempts=>15, :available_hints=>2, :difficulty=>:easy, :name=>"player1", :used_attempts=>15, :used_hints=>2}
+        {:available_attempts=>15, :available_hints=>2, :difficulty=>:easy, :name=>"player1", :used_attempts=>0, :used_hints=>0}
       ]}
 
       before do

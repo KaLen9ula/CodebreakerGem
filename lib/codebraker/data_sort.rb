@@ -13,9 +13,19 @@ module Codebraker
     def fetch_user_data(game)
       user_data = {}
       user_data[:name] = game.user.name
-      user_data[:used_attempts] = game.user.attempts
-      user_data[:used_hints] = game.user.hints
+      user_data[:used_attempts] = used_attempts(game)
+      user_data[:used_hints] = used_hints(game)
       user_data
+    end
+
+    private
+
+    def used_attempts(game)
+      Settings::DIFFICULTIES[game.difficulty][:attempts] - game.user.attempts
+    end
+
+    def used_hints(game)
+      Settings::DIFFICULTIES[game.difficulty][:hints] - game.user.hints
     end
   end
 end
