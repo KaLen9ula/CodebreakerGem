@@ -12,7 +12,6 @@ module Codebraker
     include CodeMatcher
     include Settings
     include FileStore
-    include Stats
 
     attr_accessor :difficulty
     attr_reader :possible_hints, :code, :user, :stage
@@ -83,10 +82,6 @@ module Codebraker
 
     def save_game(game)
       save_file(game)
-    end
-
-    def show_statistics
-      show_stats
     end
 
     def display_signs(input_value)

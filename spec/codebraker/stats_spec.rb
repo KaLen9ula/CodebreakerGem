@@ -5,8 +5,8 @@ require 'pry'
 
 module Codebraker
 
-  RSpec.describe Stats do
-    describe '#show_stats' do
+  RSpec.describe Statistics do
+    describe '#show' do
       let(:test_module) { Class.new { include FileStore }.new }
       let(:expected_values) {[
         {name: 'name3', difficulty: :hell, available_attempts: 5, used_attempts: 4, available_hints: 1, used_hints: 1}, 
@@ -20,11 +20,11 @@ module Codebraker
       end
 
       it 'returns stats' do
-        expect(Class.new.extend(Stats).show_stats).to eq expected_values
+        expect(Statistics.new.show).to eq expected_values
       end
 
       it 'returns array' do
-        expect(Class.new.extend(Stats).show_stats.class).to eq(Array)
+        expect(Statistics.new.show.class).to eq(Array)
       end
     end
   end

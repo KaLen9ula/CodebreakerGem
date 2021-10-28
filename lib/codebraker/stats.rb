@@ -3,10 +3,10 @@
 require_relative 'autoloader'
 
 module Codebraker
-  module Stats
+  class Statistics
     include FileStore
 
-    def show_stats
+    def show
       load_file.sort_by! { |game| [game[:available_attempts], game[:used_hints], game[:used_attempts]] }
     end
   end
