@@ -4,6 +4,7 @@ module Codebraker
   module DataSort
     def fetch_game_data(game)
       game_results = {}
+      game_results[:name] = game.user.name
       game_results[:difficulty] = game.difficulty
       game_results[:available_attempts] = Settings::DIFFICULTIES[game.difficulty][:attempts]
       game_results[:available_hints] = Settings::DIFFICULTIES[game.difficulty][:hints]
@@ -12,7 +13,6 @@ module Codebraker
 
     def fetch_user_data(game)
       user_data = {}
-      user_data[:name] = game.user.name
       user_data[:used_attempts] = used_attempts(game)
       user_data[:used_hints] = used_hints(game)
       user_data
