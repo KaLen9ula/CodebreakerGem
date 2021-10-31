@@ -1,0 +1,5 @@
+ru:
+  error:
+    length_error: 'Неправильная длинна'
+    input_error: 'Неправильный ввод'
+    stage_error: 'Неправильная стадия игры'

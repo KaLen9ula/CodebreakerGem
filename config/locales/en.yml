@@ -1,0 +1,5 @@
+en:
+  error:
+    length_error: 'Incorrect length'
+    input_error: 'Incorrect input'
+    stage_error: 'Incorrect stage of the game'

@@ -1,0 +1,17 @@
+require: 
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'vendor/bundle/**/*'
+    - 'spec/**/*.rb'
+  TargetRubyVersion: 2.5.0
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  Exclude: 
+  - 'lib/codebraker/game.rb'
