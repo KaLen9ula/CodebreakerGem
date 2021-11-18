@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'data_sort'
-require 'pry'
 
 module Codebraker
   module FileStore
