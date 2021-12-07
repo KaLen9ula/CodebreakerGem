@@ -22,7 +22,7 @@ module Codebraker
     end
 
     def load_file
-      YAML.load_file(storage_path)[:codebrakers]
+      (YAML.load_file(storage_path) || {})[:codebrakers]
     end
 
     def create_storage
