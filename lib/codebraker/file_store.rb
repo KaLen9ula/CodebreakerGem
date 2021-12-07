@@ -28,10 +28,7 @@ module Codebraker
     def create_storage
       Dir.mkdir(FILE_DIRECTORY) unless Dir.exist?(FILE_DIRECTORY)
       unless File.exist?(storage_path)
-        new_file = YAML::Store.new(storage_path)
-        new_file.transaction do
-          new_file[:codebrakers] = []
-        end
+        File.open(storage_path, 'w+') {}
       end
       YAML.load_file(storage_path)
     end
