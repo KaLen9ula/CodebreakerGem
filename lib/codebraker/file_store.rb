@@ -22,14 +22,13 @@ module Codebraker
     end
 
     def load_file
+      create_storage unless storage_exists?
       (YAML.load_file(storage_path) || {})[:codebrakers]
     end
 
     def create_storage
       Dir.mkdir(FILE_DIRECTORY) unless Dir.exist?(FILE_DIRECTORY)
-      unless File.exist?(storage_path)
-        File.open(storage_path, 'w+') {}
-      end
+      File.open(storage_path, 'w+') unless File.exist?(storage_path)
       YAML.load_file(storage_path)
     end
 
