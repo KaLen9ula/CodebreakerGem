@@ -12,7 +12,7 @@ module Codebraker
     def save_file(game)
       raise WrongStageError unless game.stage == Settings::WIN
 
-      rating = storage_exists? ? load_file : create_storage[:codebrakers]
+      rating = load_file
       rating << fetch_game_data(game)
       store = YAML::Store.new(storage_path)
       store.transaction do
