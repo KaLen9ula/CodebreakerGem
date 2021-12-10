@@ -23,7 +23,7 @@ module Codebraker
 
     def load_file
       create_storage unless storage_exists?
-      (YAML.load_file(storage_path) || {})[:codebrakers]
+      (YAML.load_file(storage_path) || {})[:codebrakers] || []
     end
 
     def create_storage
