@@ -70,7 +70,7 @@ module Codebraker
     end
 
     def lose?
-      return if user.attempts.zero?
+      return unless user.attempts.zero?
 
       @stage = LOSE
       true
