@@ -71,6 +71,7 @@ module Codebraker
 
     def lose?
       return unless user.attempts.zero?
+      raise WrongStageError unless user.attempts.zero?
 
       @stage = LOSE
       true
