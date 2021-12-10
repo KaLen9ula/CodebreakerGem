@@ -7,7 +7,7 @@ module Codebraker
     include FileStore
 
     def show
-      load_file&.each.sort_by { |game| [game[:available_attempts], game[:used_hints], game[:used_attempts]] }
+      load_file&.each&.sort_by { |game| [game[:available_attempts], game[:used_hints], game[:used_attempts]] }
     end
   end
 end
